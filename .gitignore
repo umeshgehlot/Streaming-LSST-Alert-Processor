@@ -1,0 +1,32 @@
+# Astronomical Anomaly Discovery Project Gitignore
+
+# Environment variables
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+
+# Databases
+backend/app.db
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env*
+frontend/.next/
+frontend/out/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Data
+data/uploads/*
+!data/uploads/.gitkeep
