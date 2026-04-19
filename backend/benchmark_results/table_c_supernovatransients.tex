@@ -1,0 +1,22 @@
+\begin{table}[htbp]
+\caption{Results on Dataset C_SupernovaTransients}
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Method} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} & \textbf{AUC-ROC} & \textbf{AUC-PR} \\
+\hline
+Autoencoder & 0.6500 & 0.3988 & 0.4943 & 0.8654 & 0.4848 \\
+Vae & 0.6400 & 0.3926 & 0.4867 & 0.8940 & 0.5228 \\
+Transformer & 0.6300 & 0.3865 & 0.4791 & 0.9324 & 0.6688 \\
+\hline
+\textbf{Ensemble (Ours)} & 0.6125 & 0.6012 & 0.6068 & 0.9034 & 0.5627 \\
+Isolation Forest & 0.9200 & 0.5644 & 0.6996 & 0.9808 & 0.8593 \\
+Lof & 0.3200 & 0.1963 & 0.2433 & 0.8793 & 0.2933 \\
+Ocsvm & 0.9400 & 0.5767 & 0.7148 & 0.9801 & 0.8685 \\
+Zscore & 0.8900 & 0.5460 & 0.6768 & 0.9871 & 0.8641 \\
+\hline
+\hline
+\end{tabular}
+\label{tab:results_c_supernovatransients}
+\end{center}
+\end{table}

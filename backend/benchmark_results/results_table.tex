@@ -1,0 +1,22 @@
+\begin{table}[htbp]
+\caption{Anomaly Detection Performance — Mean Across All Benchmark Datasets}
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Method} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} & \textbf{AUC-ROC} & \textbf{AUC-PR} \\
+\hline
+Autoencoder & 0.5520 & 0.3932 & 0.4493 & 0.9017 & 0.4981 \\
+Vae & 0.6040 & 0.4476 & 0.5021 & 0.9153 & 0.5535 \\
+Transformer & 0.5100 & 0.3755 & 0.4229 & 0.8860 & 0.5291 \\
+\hline
+\textbf{Ensemble (Ours)} & 0.5413 & 0.6487 & 0.5816 & 0.9107 & 0.5490 \\
+Isolation Forest & 0.7700 & 0.5827 & 0.6483 & 0.9469 & 0.7191 \\
+Lof & 0.4820 & 0.3474 & 0.3943 & 0.8960 & 0.4837 \\
+Ocsvm & 0.7580 & 0.5742 & 0.6388 & 0.9451 & 0.7181 \\
+Zscore & 0.7180 & 0.5355 & 0.5998 & 0.9431 & 0.6973 \\
+\hline
+\hline
+\end{tabular}
+\label{tab:main_results}
+\end{center}
+\end{table}

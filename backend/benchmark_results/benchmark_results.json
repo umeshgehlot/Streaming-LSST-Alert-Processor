@@ -1,0 +1,1030 @@
+{
+  "per_dataset": {
+    "A_PointAnomalies": {
+      "dataset_info": {
+        "name": "A_PointAnomalies",
+        "description": "Sinusoidal variable star with sudden flux spikes",
+        "n_points": 2000,
+        "anomaly_rate": 0.0975
+      },
+      "model_results": [
+        {
+          "precision": 0.32,
+          "recall": 0.1641,
+          "f1_score": 0.2169,
+          "accuracy": 0.8845,
+          "auc_roc": 0.7376,
+          "auc_pr": 0.2418,
+          "threshold": 0.75537,
+          "confusion_matrix": {
+            "tp": 32,
+            "fp": 68,
+            "tn": 1737,
+            "fn": 163
+          },
+          "predictions_positive": 100,
+          "actual_positive": 195,
+          "model_name": "autoencoder",
+          "final_loss": 0.296471,
+          "n_parameters": 6320
+        },
+        {
+          "precision": 0.34,
+          "recall": 0.1744,
+          "f1_score": 0.2305,
+          "accuracy": 0.8865,
+          "auc_roc": 0.7477,
+          "auc_pr": 0.2523,
+          "threshold": 1.575566,
+          "confusion_matrix": {
+            "tp": 34,
+            "fp": 66,
+            "tn": 1739,
+            "fn": 161
+          },
+          "predictions_positive": 100,
+          "actual_positive": 195,
+          "model_name": "vae",
+          "final_loss": 0.649794,
+          "n_parameters": 9200
+        },
+        {
+          "precision": 0.18,
+          "recall": 0.0923,
+          "f1_score": 0.122,
+          "accuracy": 0.8705,
+          "auc_roc": 0.601,
+          "auc_pr": 0.15,
+          "threshold": 0.031036,
+          "confusion_matrix": {
+            "tp": 18,
+            "fp": 82,
+            "tn": 1723,
+            "fn": 177
+          },
+          "predictions_positive": 100,
+          "actual_positive": 195,
+          "model_name": "transformer",
+          "final_loss": 0.015919,
+          "n_parameters": 275105
+        },
+        {
+          "precision": 0.2393,
+          "recall": 0.3436,
+          "f1_score": 0.2821,
+          "accuracy": 0.8295,
+          "auc_roc": 0.7272,
+          "auc_pr": 0.2131,
+          "threshold": 0.522942,
+          "confusion_matrix": {
+            "tp": 67,
+            "fp": 213,
+            "tn": 1592,
+            "fn": 128
+          },
+          "predictions_positive": 280,
+          "actual_positive": 195,
+          "model_name": "ensemble",
+          "ensemble_method": "stacked",
+          "optimal_percentile": 86.0,
+          "n_parameters": 290625
+        },
+        {
+          "precision": 0.41,
+          "recall": 0.2103,
+          "f1_score": 0.278,
+          "accuracy": 0.8935,
+          "auc_roc": 0.7806,
+          "auc_pr": 0.2823,
+          "threshold": 0.422033,
+          "confusion_matrix": {
+            "tp": 41,
+            "fp": 59,
+            "tn": 1746,
+            "fn": 154
+          },
+          "predictions_positive": 100,
+          "actual_positive": 195,
+          "model_name": "isolation_forest"
+        },
+        {
+          "precision": 0.31,
+          "recall": 0.159,
+          "f1_score": 0.2102,
+          "accuracy": 0.8835,
+          "auc_roc": 0.705,
+          "auc_pr": 0.2118,
+          "threshold": 3.508382,
+          "confusion_matrix": {
+            "tp": 31,
+            "fp": 69,
+            "tn": 1736,
+            "fn": 164
+          },
+          "predictions_positive": 100,
+          "actual_positive": 195,
+          "model_name": "lof"
+        },
+        {
+          "precision": 0.39,
+          "recall": 0.2,
+          "f1_score": 0.2644,
+          "accuracy": 0.8915,
+          "auc_roc": 0.7701,
+          "auc_pr": 0.2762,
+          "threshold": 0.915157,
+          "confusion_matrix": {
+            "tp": 39,
+            "fp": 61,
+            "tn": 1744,
+            "fn": 156
+          },
+          "predictions_positive": 100,
+          "actual_positive": 195,
+          "model_name": "ocsvm"
+        },
+        {
+          "precision": 0.38,
+          "recall": 0.1949,
+          "f1_score": 0.2576,
+          "accuracy": 0.8905,
+          "auc_roc": 0.7653,
+          "auc_pr": 0.2727,
+          "threshold": 0.90566,
+          "confusion_matrix": {
+            "tp": 38,
+            "fp": 62,
+            "tn": 1743,
+            "fn": 157
+          },
+          "predictions_positive": 100,
+          "actual_positive": 195,
+          "model_name": "zscore"
+        }
+      ],
+      "rl_threshold": {
+        "static_threshold": {
+          "percentile": 95.0,
+          "precision": 0.29,
+          "recall": 0.1487,
+          "f1_score": 0.1966
+        },
+        "rl_adapted_threshold": {
+          "percentile": 86.5,
+          "precision": 0.2222,
+          "recall": 0.3077,
+          "f1_score": 0.2581
+        },
+        "improvement": {
+          "f1_delta": 0.0615,
+          "precision_delta": -0.0678,
+          "recall_delta": 0.159
+        }
+      }
+    },
+    "B_ContextualAnomalies": {
+      "dataset_info": {
+        "name": "B_ContextualAnomalies",
+        "description": "Periodic star with gradual dimming events",
+        "n_points": 2000,
+        "anomaly_rate": 0.053
+      },
+      "model_results": [
+        {
+          "precision": 0.47,
+          "recall": 0.4434,
+          "f1_score": 0.4563,
+          "accuracy": 0.944,
+          "auc_roc": 0.9596,
+          "auc_pr": 0.5018,
+          "threshold": 0.171347,
+          "confusion_matrix": {
+            "tp": 47,
+            "fp": 53,
+            "tn": 1841,
+            "fn": 59
+          },
+          "predictions_positive": 100,
+          "actual_positive": 106,
+          "model_name": "autoencoder",
+          "final_loss": 0.04365,
+          "n_parameters": 6320
+        },
+        {
+          "precision": 0.61,
+          "recall": 0.5755,
+          "f1_score": 0.5922,
+          "accuracy": 0.958,
+          "auc_roc": 0.9742,
+          "auc_pr": 0.6034,
+          "threshold": 0.552754,
+          "confusion_matrix": {
+            "tp": 61,
+            "fp": 39,
+            "tn": 1855,
+            "fn": 45
+          },
+          "predictions_positive": 100,
+          "actual_positive": 106,
+          "model_name": "vae",
+          "final_loss": 0.117712,
+          "n_parameters": 9200
+        },
+        {
+          "precision": 0.5,
+          "recall": 0.4717,
+          "f1_score": 0.4854,
+          "accuracy": 0.947,
+          "auc_roc": 0.9774,
+          "auc_pr": 0.6784,
+          "threshold": 0.037066,
+          "confusion_matrix": {
+            "tp": 50,
+            "fp": 50,
+            "tn": 1844,
+            "fn": 56
+          },
+          "predictions_positive": 100,
+          "actual_positive": 106,
+          "model_name": "transformer",
+          "final_loss": 0.027138,
+          "n_parameters": 275105
+        },
+        {
+          "precision": 0.67,
+          "recall": 0.6321,
+          "f1_score": 0.6505,
+          "accuracy": 0.964,
+          "auc_roc": 0.9778,
+          "auc_pr": 0.7287,
+          "threshold": 0.609447,
+          "confusion_matrix": {
+            "tp": 67,
+            "fp": 33,
+            "tn": 1861,
+            "fn": 39
+          },
+          "predictions_positive": 100,
+          "actual_positive": 106,
+          "model_name": "ensemble",
+          "ensemble_method": "stacked",
+          "optimal_percentile": 95.0,
+          "n_parameters": 290625
+        },
+        {
+          "precision": 0.92,
+          "recall": 0.8679,
+          "f1_score": 0.8932,
+          "accuracy": 0.989,
+          "auc_roc": 0.9983,
+          "auc_pr": 0.9575,
+          "threshold": 0.570763,
+          "confusion_matrix": {
+            "tp": 92,
+            "fp": 8,
+            "tn": 1886,
+            "fn": 14
+          },
+          "predictions_positive": 100,
+          "actual_positive": 106,
+          "model_name": "isolation_forest"
+        },
+        {
+          "precision": 0.46,
+          "recall": 0.434,
+          "f1_score": 0.4466,
+          "accuracy": 0.943,
+          "auc_roc": 0.9634,
+          "auc_pr": 0.5835,
+          "threshold": 2.385735,
+          "confusion_matrix": {
+            "tp": 46,
+            "fp": 54,
+            "tn": 1840,
+            "fn": 60
+          },
+          "predictions_positive": 100,
+          "actual_positive": 106,
+          "model_name": "lof"
+        },
+        {
+          "precision": 0.94,
+          "recall": 0.8868,
+          "f1_score": 0.9126,
+          "accuracy": 0.991,
+          "auc_roc": 0.999,
+          "auc_pr": 0.9692,
+          "threshold": 0.892704,
+          "confusion_matrix": {
+            "tp": 94,
+            "fp": 6,
+            "tn": 1888,
+            "fn": 12
+          },
+          "predictions_positive": 100,
+          "actual_positive": 106,
+          "model_name": "ocsvm"
+        },
+        {
+          "precision": 0.83,
+          "recall": 0.783,
+          "f1_score": 0.8058,
+          "accuracy": 0.98,
+          "auc_roc": 0.9938,
+          "auc_pr": 0.8977,
+          "threshold": 1.541454,
+          "confusion_matrix": {
+            "tp": 83,
+            "fp": 17,
+            "tn": 1877,
+            "fn": 23
+          },
+          "predictions_positive": 100,
+          "actual_positive": 106,
+          "model_name": "zscore"
+        }
+      ],
+      "rl_threshold": {
+        "static_threshold": {
+          "percentile": 95.0,
+          "precision": 0.67,
+          "recall": 0.6321,
+          "f1_score": 0.6505
+        },
+        "rl_adapted_threshold": {
+          "percentile": 95.0,
+          "precision": 0.67,
+          "recall": 0.6321,
+          "f1_score": 0.6505
+        },
+        "improvement": {
+          "f1_delta": 0.0,
+          "precision_delta": 0.0,
+          "recall_delta": 0.0
+        }
+      }
+    },
+    "C_SupernovaTransients": {
+      "dataset_info": {
+        "name": "C_SupernovaTransients",
+        "description": "Eclipsing binary with supernovae-like transients",
+        "n_points": 2000,
+        "anomaly_rate": 0.0815
+      },
+      "model_results": [
+        {
+          "precision": 0.65,
+          "recall": 0.3988,
+          "f1_score": 0.4943,
+          "accuracy": 0.9335,
+          "auc_roc": 0.8654,
+          "auc_pr": 0.4848,
+          "threshold": 0.391821,
+          "confusion_matrix": {
+            "tp": 65,
+            "fp": 35,
+            "tn": 1802,
+            "fn": 98
+          },
+          "predictions_positive": 100,
+          "actual_positive": 163,
+          "model_name": "autoencoder",
+          "final_loss": 0.126958,
+          "n_parameters": 6320
+        },
+        {
+          "precision": 0.64,
+          "recall": 0.3926,
+          "f1_score": 0.4867,
+          "accuracy": 0.9325,
+          "auc_roc": 0.894,
+          "auc_pr": 0.5228,
+          "threshold": 0.89075,
+          "confusion_matrix": {
+            "tp": 64,
+            "fp": 36,
+            "tn": 1801,
+            "fn": 99
+          },
+          "predictions_positive": 100,
+          "actual_positive": 163,
+          "model_name": "vae",
+          "final_loss": 0.236684,
+          "n_parameters": 9200
+        },
+        {
+          "precision": 0.63,
+          "recall": 0.3865,
+          "f1_score": 0.4791,
+          "accuracy": 0.9315,
+          "auc_roc": 0.9324,
+          "auc_pr": 0.6688,
+          "threshold": 0.307353,
+          "confusion_matrix": {
+            "tp": 63,
+            "fp": 37,
+            "tn": 1800,
+            "fn": 100
+          },
+          "predictions_positive": 100,
+          "actual_positive": 163,
+          "model_name": "transformer",
+          "final_loss": 0.066864,
+          "n_parameters": 275105
+        },
+        {
+          "precision": 0.6125,
+          "recall": 0.6012,
+          "f1_score": 0.6068,
+          "accuracy": 0.9365,
+          "auc_roc": 0.9034,
+          "auc_pr": 0.5627,
+          "threshold": 0.510123,
+          "confusion_matrix": {
+            "tp": 98,
+            "fp": 62,
+            "tn": 1775,
+            "fn": 65
+          },
+          "predictions_positive": 160,
+          "actual_positive": 163,
+          "model_name": "ensemble",
+          "ensemble_method": "stacked",
+          "optimal_percentile": 92.0,
+          "n_parameters": 290625
+        },
+        {
+          "precision": 0.92,
+          "recall": 0.5644,
+          "f1_score": 0.6996,
+          "accuracy": 0.9605,
+          "auc_roc": 0.9808,
+          "auc_pr": 0.8593,
+          "threshold": 0.537459,
+          "confusion_matrix": {
+            "tp": 92,
+            "fp": 8,
+            "tn": 1829,
+            "fn": 71
+          },
+          "predictions_positive": 100,
+          "actual_positive": 163,
+          "model_name": "isolation_forest"
+        },
+        {
+          "precision": 0.32,
+          "recall": 0.1963,
+          "f1_score": 0.2433,
+          "accuracy": 0.9005,
+          "auc_roc": 0.8793,
+          "auc_pr": 0.2933,
+          "threshold": 2.024193,
+          "confusion_matrix": {
+            "tp": 32,
+            "fp": 68,
+            "tn": 1769,
+            "fn": 131
+          },
+          "predictions_positive": 100,
+          "actual_positive": 163,
+          "model_name": "lof"
+        },
+        {
+          "precision": 0.94,
+          "recall": 0.5767,
+          "f1_score": 0.7148,
+          "accuracy": 0.9625,
+          "auc_roc": 0.9801,
+          "auc_pr": 0.8685,
+          "threshold": 0.88796,
+          "confusion_matrix": {
+            "tp": 94,
+            "fp": 6,
+            "tn": 1831,
+            "fn": 69
+          },
+          "predictions_positive": 100,
+          "actual_positive": 163,
+          "model_name": "ocsvm"
+        },
+        {
+          "precision": 0.89,
+          "recall": 0.546,
+          "f1_score": 0.6768,
+          "accuracy": 0.9575,
+          "auc_roc": 0.9871,
+          "auc_pr": 0.8641,
+          "threshold": 1.607573,
+          "confusion_matrix": {
+            "tp": 89,
+            "fp": 11,
+            "tn": 1826,
+            "fn": 74
+          },
+          "predictions_positive": 100,
+          "actual_positive": 163,
+          "model_name": "zscore"
+        }
+      ],
+      "rl_threshold": {
+        "static_threshold": {
+          "percentile": 95.0,
+          "precision": 0.67,
+          "recall": 0.411,
+          "f1_score": 0.5095
+        },
+        "rl_adapted_threshold": {
+          "percentile": 91.0,
+          "precision": 0.6111,
+          "recall": 0.6748,
+          "f1_score": 0.6414
+        },
+        "improvement": {
+          "f1_delta": 0.1319,
+          "precision_delta": -0.0589,
+          "recall_delta": 0.2638
+        }
+      }
+    },
+    "D_FastBursts": {
+      "dataset_info": {
+        "name": "D_FastBursts",
+        "description": "Flat baseline with fast radio burst-style impulses",
+        "n_points": 2000,
+        "anomaly_rate": 0.0425
+      },
+      "model_results": [
+        {
+          "precision": 0.35,
+          "recall": 0.4118,
+          "f1_score": 0.3784,
+          "accuracy": 0.9425,
+          "auc_roc": 0.9506,
+          "auc_pr": 0.3205,
+          "threshold": 0.537507,
+          "confusion_matrix": {
+            "tp": 35,
+            "fp": 65,
+            "tn": 1850,
+            "fn": 50
+          },
+          "predictions_positive": 100,
+          "actual_positive": 85,
+          "model_name": "autoencoder",
+          "final_loss": 0.102407,
+          "n_parameters": 6320
+        },
+        {
+          "precision": 0.47,
+          "recall": 0.5529,
+          "f1_score": 0.5081,
+          "accuracy": 0.9545,
+          "auc_roc": 0.9654,
+          "auc_pr": 0.4494,
+          "threshold": 1.71327,
+          "confusion_matrix": {
+            "tp": 47,
+            "fp": 53,
+            "tn": 1862,
+            "fn": 38
+          },
+          "predictions_positive": 100,
+          "actual_positive": 85,
+          "model_name": "vae",
+          "final_loss": 0.314671,
+          "n_parameters": 9200
+        },
+        {
+          "precision": 0.37,
+          "recall": 0.4353,
+          "f1_score": 0.4,
+          "accuracy": 0.9445,
+          "auc_roc": 0.9316,
+          "auc_pr": 0.2872,
+          "threshold": 0.743796,
+          "confusion_matrix": {
+            "tp": 37,
+            "fp": 63,
+            "tn": 1852,
+            "fn": 48
+          },
+          "predictions_positive": 100,
+          "actual_positive": 85,
+          "model_name": "transformer",
+          "final_loss": 0.11786,
+          "n_parameters": 275105
+        },
+        {
+          "precision": 0.375,
+          "recall": 0.7059,
+          "f1_score": 0.4898,
+          "accuracy": 0.9375,
+          "auc_roc": 0.9514,
+          "auc_pr": 0.3201,
+          "threshold": 0.605308,
+          "confusion_matrix": {
+            "tp": 60,
+            "fp": 100,
+            "tn": 1815,
+            "fn": 25
+          },
+          "predictions_positive": 160,
+          "actual_positive": 85,
+          "model_name": "ensemble",
+          "ensemble_method": "stacked",
+          "optimal_percentile": 92.0,
+          "n_parameters": 290625
+        },
+        {
+          "precision": 0.6,
+          "recall": 0.7059,
+          "f1_score": 0.6486,
+          "accuracy": 0.9675,
+          "auc_roc": 0.9776,
+          "auc_pr": 0.5355,
+          "threshold": 0.474194,
+          "confusion_matrix": {
+            "tp": 60,
+            "fp": 40,
+            "tn": 1875,
+            "fn": 25
+          },
+          "predictions_positive": 100,
+          "actual_positive": 85,
+          "model_name": "isolation_forest"
+        },
+        {
+          "precision": 0.33,
+          "recall": 0.3882,
+          "f1_score": 0.3568,
+          "accuracy": 0.9405,
+          "auc_roc": 0.936,
+          "auc_pr": 0.3736,
+          "threshold": 14.180799,
+          "confusion_matrix": {
+            "tp": 33,
+            "fp": 67,
+            "tn": 1848,
+            "fn": 52
+          },
+          "predictions_positive": 100,
+          "actual_positive": 85,
+          "model_name": "lof"
+        },
+        {
+          "precision": 0.57,
+          "recall": 0.6706,
+          "f1_score": 0.6162,
+          "accuracy": 0.9645,
+          "auc_roc": 0.9811,
+          "auc_pr": 0.5384,
+          "threshold": 0.949176,
+          "confusion_matrix": {
+            "tp": 57,
+            "fp": 43,
+            "tn": 1872,
+            "fn": 28
+          },
+          "predictions_positive": 100,
+          "actual_positive": 85,
+          "model_name": "ocsvm"
+        },
+        {
+          "precision": 0.51,
+          "recall": 0.6,
+          "f1_score": 0.5514,
+          "accuracy": 0.9585,
+          "auc_roc": 0.9728,
+          "auc_pr": 0.5006,
+          "threshold": 1.016957,
+          "confusion_matrix": {
+            "tp": 51,
+            "fp": 49,
+            "tn": 1866,
+            "fn": 34
+          },
+          "predictions_positive": 100,
+          "actual_positive": 85,
+          "model_name": "zscore"
+        }
+      ],
+      "rl_threshold": {
+        "static_threshold": {
+          "percentile": 95.0,
+          "precision": 0.39,
+          "recall": 0.4588,
+          "f1_score": 0.4216
+        },
+        "rl_adapted_threshold": {
+          "percentile": 91.5,
+          "precision": 0.3588,
+          "recall": 0.7176,
+          "f1_score": 0.4784
+        },
+        "improvement": {
+          "f1_delta": 0.0568,
+          "precision_delta": -0.0312,
+          "recall_delta": 0.2588
+        }
+      }
+    },
+    "E_CollectiveAnomalies": {
+      "dataset_info": {
+        "name": "E_CollectiveAnomalies",
+        "description": "Multi-periodic signal with chaotic segments",
+        "n_points": 2000,
+        "anomaly_rate": 0.0885
+      },
+      "model_results": [
+        {
+          "precision": 0.97,
+          "recall": 0.548,
+          "f1_score": 0.7004,
+          "accuracy": 0.9585,
+          "auc_roc": 0.9954,
+          "auc_pr": 0.9418,
+          "threshold": 3.530312,
+          "confusion_matrix": {
+            "tp": 97,
+            "fp": 3,
+            "tn": 1820,
+            "fn": 80
+          },
+          "predictions_positive": 100,
+          "actual_positive": 177,
+          "model_name": "autoencoder",
+          "final_loss": 0.432409,
+          "n_parameters": 6320
+        },
+        {
+          "precision": 0.96,
+          "recall": 0.5424,
+          "f1_score": 0.6931,
+          "accuracy": 0.9575,
+          "auc_roc": 0.9951,
+          "auc_pr": 0.9397,
+          "threshold": 4.875579,
+          "confusion_matrix": {
+            "tp": 96,
+            "fp": 4,
+            "tn": 1819,
+            "fn": 81
+          },
+          "predictions_positive": 100,
+          "actual_positive": 177,
+          "model_name": "vae",
+          "final_loss": 0.643342,
+          "n_parameters": 9200
+        },
+        {
+          "precision": 0.87,
+          "recall": 0.4915,
+          "f1_score": 0.6282,
+          "accuracy": 0.9485,
+          "auc_roc": 0.9877,
+          "auc_pr": 0.8612,
+          "threshold": 0.261793,
+          "confusion_matrix": {
+            "tp": 87,
+            "fp": 13,
+            "tn": 1810,
+            "fn": 90
+          },
+          "predictions_positive": 100,
+          "actual_positive": 177,
+          "model_name": "transformer",
+          "final_loss": 0.038549,
+          "n_parameters": 275105
+        },
+        {
+          "precision": 0.8095,
+          "recall": 0.9605,
+          "f1_score": 0.8786,
+          "accuracy": 0.9765,
+          "auc_roc": 0.9935,
+          "auc_pr": 0.9202,
+          "threshold": 0.512578,
+          "confusion_matrix": {
+            "tp": 170,
+            "fp": 40,
+            "tn": 1783,
+            "fn": 7
+          },
+          "predictions_positive": 210,
+          "actual_positive": 177,
+          "model_name": "ensemble",
+          "ensemble_method": "stacked",
+          "optimal_percentile": 89.5,
+          "n_parameters": 290625
+        },
+        {
+          "precision": 1.0,
+          "recall": 0.565,
+          "f1_score": 0.722,
+          "accuracy": 0.9615,
+          "auc_roc": 0.9971,
+          "auc_pr": 0.9607,
+          "threshold": 0.548683,
+          "confusion_matrix": {
+            "tp": 100,
+            "fp": 0,
+            "tn": 1823,
+            "fn": 77
+          },
+          "predictions_positive": 100,
+          "actual_positive": 177,
+          "model_name": "isolation_forest"
+        },
+        {
+          "precision": 0.99,
+          "recall": 0.5593,
+          "f1_score": 0.7148,
+          "accuracy": 0.9605,
+          "auc_roc": 0.9965,
+          "auc_pr": 0.9562,
+          "threshold": 7.95735,
+          "confusion_matrix": {
+            "tp": 99,
+            "fp": 1,
+            "tn": 1822,
+            "fn": 78
+          },
+          "predictions_positive": 100,
+          "actual_positive": 177,
+          "model_name": "lof"
+        },
+        {
+          "precision": 0.95,
+          "recall": 0.5367,
+          "f1_score": 0.6859,
+          "accuracy": 0.9565,
+          "auc_roc": 0.9951,
+          "auc_pr": 0.938,
+          "threshold": 0.991923,
+          "confusion_matrix": {
+            "tp": 95,
+            "fp": 5,
+            "tn": 1818,
+            "fn": 82
+          },
+          "predictions_positive": 100,
+          "actual_positive": 177,
+          "model_name": "ocsvm"
+        },
+        {
+          "precision": 0.98,
+          "recall": 0.5537,
+          "f1_score": 0.7076,
+          "accuracy": 0.9595,
+          "auc_roc": 0.9963,
+          "auc_pr": 0.9514,
+          "threshold": 1.746649,
+          "confusion_matrix": {
+            "tp": 98,
+            "fp": 2,
+            "tn": 1821,
+            "fn": 79
+          },
+          "predictions_positive": 100,
+          "actual_positive": 177,
+          "model_name": "zscore"
+        }
+      ],
+      "rl_threshold": {
+        "static_threshold": {
+          "percentile": 95.0,
+          "precision": 0.92,
+          "recall": 0.5198,
+          "f1_score": 0.6643
+        },
+        "rl_adapted_threshold": {
+          "percentile": 89.5,
+          "precision": 0.8095,
+          "recall": 0.9605,
+          "f1_score": 0.8786
+        },
+        "improvement": {
+          "f1_delta": 0.2143,
+          "precision_delta": -0.1105,
+          "recall_delta": 0.4407
+        }
+      }
+    }
+  },
+  "aggregated": [
+    {
+      "model_name": "autoencoder",
+      "precision": 0.552,
+      "precision_std": 0.239,
+      "recall": 0.3932,
+      "recall_std": 0.126,
+      "f1_score": 0.4493,
+      "f1_std": 0.1576,
+      "auc_roc": 0.9017,
+      "auc_roc_std": 0.0925,
+      "auc_pr": 0.4981,
+      "auc_pr_std": 0.2426
+    },
+    {
+      "model_name": "vae",
+      "precision": 0.604,
+      "precision_std": 0.2077,
+      "recall": 0.4476,
+      "recall_std": 0.1511,
+      "f1_score": 0.5021,
+      "f1_std": 0.154,
+      "auc_roc": 0.9153,
+      "auc_roc_std": 0.0904,
+      "auc_pr": 0.5535,
+      "auc_pr_std": 0.2255
+    },
+    {
+      "model_name": "transformer",
+      "precision": 0.51,
+      "precision_std": 0.2335,
+      "recall": 0.3755,
+      "recall_std": 0.146,
+      "f1_score": 0.4229,
+      "f1_std": 0.1675,
+      "auc_roc": 0.886,
+      "auc_roc_std": 0.1443,
+      "auc_pr": 0.5291,
+      "auc_pr_std": 0.2662
+    },
+    {
+      "model_name": "ensemble",
+      "precision": 0.5413,
+      "precision_std": 0.2061,
+      "recall": 0.6487,
+      "recall_std": 0.198,
+      "f1_score": 0.5816,
+      "f1_std": 0.1958,
+      "auc_roc": 0.9107,
+      "auc_roc_std": 0.0967,
+      "auc_pr": 0.549,
+      "auc_pr_std": 0.259
+    },
+    {
+      "model_name": "isolation_forest",
+      "precision": 0.77,
+      "precision_std": 0.2265,
+      "recall": 0.5827,
+      "recall_std": 0.2172,
+      "f1_score": 0.6483,
+      "f1_std": 0.2026,
+      "auc_roc": 0.9469,
+      "auc_roc_std": 0.0836,
+      "auc_pr": 0.7191,
+      "auc_pr_std": 0.2681
+    },
+    {
+      "model_name": "lof",
+      "precision": 0.482,
+      "precision_std": 0.2598,
+      "recall": 0.3474,
+      "recall_std": 0.1499,
+      "f1_score": 0.3943,
+      "f1_std": 0.1809,
+      "auc_roc": 0.896,
+      "auc_roc_std": 0.103,
+      "auc_pr": 0.4837,
+      "auc_pr_std": 0.2667
+    },
+    {
+      "model_name": "ocsvm",
+      "precision": 0.758,
+      "precision_std": 0.234,
+      "recall": 0.5742,
+      "recall_std": 0.2229,
+      "f1_score": 0.6388,
+      "f1_std": 0.2115,
+      "auc_roc": 0.9451,
+      "auc_roc_std": 0.0878,
+      "auc_pr": 0.7181,
+      "auc_pr_std": 0.2689
+    },
+    {
+      "model_name": "zscore",
+      "precision": 0.718,
+      "precision_std": 0.2316,
+      "recall": 0.5355,
+      "recall_std": 0.1907,
+      "f1_score": 0.5998,
+      "f1_std": 0.1894,
+      "auc_roc": 0.9431,
+      "auc_roc_std": 0.0893,
+      "auc_pr": 0.6973,
+      "auc_pr_std": 0.2652
+    }
+  ],
+  "rl_summary": {
+    "static_f1_mean": 0.4885,
+    "adaptive_f1_mean": 0.5814,
+    "improvement": 0.0929
+  },
+  "significance_test": {
+    "t_statistic": -1.0261,
+    "p_value": 0.3048,
+    "significant": "False"
+  }
+}

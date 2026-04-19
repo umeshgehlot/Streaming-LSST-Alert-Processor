@@ -1,0 +1,22 @@
+\begin{table}[htbp]
+\caption{Results on Dataset B_ContextualAnomalies}
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+\textbf{Method} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} & \textbf{AUC-ROC} & \textbf{AUC-PR} \\
+\hline
+Autoencoder & 0.4700 & 0.4434 & 0.4563 & 0.9596 & 0.5018 \\
+Vae & 0.6100 & 0.5755 & 0.5922 & 0.9742 & 0.6034 \\
+Transformer & 0.5000 & 0.4717 & 0.4854 & 0.9774 & 0.6784 \\
+\hline
+\textbf{Ensemble (Ours)} & 0.6700 & 0.6321 & 0.6505 & 0.9778 & 0.7287 \\
+Isolation Forest & 0.9200 & 0.8679 & 0.8932 & 0.9983 & 0.9575 \\
+Lof & 0.4600 & 0.4340 & 0.4466 & 0.9634 & 0.5835 \\
+Ocsvm & 0.9400 & 0.8868 & 0.9126 & 0.9990 & 0.9692 \\
+Zscore & 0.8300 & 0.7830 & 0.8058 & 0.9938 & 0.8977 \\
+\hline
+\hline
+\end{tabular}
+\label{tab:results_b_contextualanomalies}
+\end{center}
+\end{table}
