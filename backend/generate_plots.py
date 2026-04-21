@@ -1,7 +1,16 @@
 import os
 import json
+import logging
 import numpy as np
 import matplotlib.pyplot as plt
+
+# SOTA INTEGRATION (MODULARIZED)
+try:
+    from src.sota.viz import SotaPlotter
+    SOTA_PLOTS_AVAILABLE = True
+except ImportError:
+    SOTA_PLOTS_AVAILABLE = False
+    logging.warning("src.sota.viz not found. Falling back to static plots.")
 
 # Configuration
 RESULTS_PATH = "benchmark_results/benchmark_results.json"
@@ -39,7 +48,20 @@ def generate_mock_pr(p: float, r: float, auc: float, n_points: int = 100):
     return recall, precision
 
 def plot_mean_curves(results):
-    print("Generating mean ROC/PR plots from aggregate metrics...")
+    print("Generating ROC/PR plots...")
+    if SOTA_PLOTS_AVAILABLE:
+        try:
+            # Generate Interactive Plotly JSON
+            sota_res = SotaPlotter.generate_sota_roc_pr(results["per_dataset"])
+            output_path = os.path.join(OUTPUT_DIR, "sota_interactive_plots.json")
+            with open(output_path, "w") as f:
+                json.dump(sota_res, f)
+            print(f"SOTA Interactive Plots saved to {output_path}")
+            # We continue for static PNG fallback
+        except Exception as e:
+            logging.error(f"SOTA Plotting failed: {e}")
+
+    # (Original Matplotlib code below)
     plt.figure(figsize=(12, 5))
     
     datasets = list(results["per_dataset"].keys())

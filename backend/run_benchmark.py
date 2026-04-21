@@ -20,13 +20,27 @@ import json
 import os
 import sys
 import time
-from pathlib import Path
+# Ensure imports resolve (Add both backend and project root)
+import os
+backend_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(backend_dir, ".."))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+if backend_dir not in sys.path:
+    sys.path.insert(0, backend_dir)
 
-import numpy as np
-import torch
-
-# Ensure imports resolve
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+# SOTA INTEGRATION (MODULARIZED)
+try:
+    from src.sota.experiment import ExperimentTracker as SotaBenchmarkService
+    SOTA_BENCHMARK_AVAILABLE = True
+except ImportError as e:
+    # Try as direct package if src was added
+    try:
+        from sota.experiment import ExperimentTracker as SotaBenchmarkService
+        SOTA_BENCHMARK_AVAILABLE = True
+    except ImportError:
+        SOTA_BENCHMARK_AVAILABLE = False
+        logging.warning(f"SOTA modules not found. Error: {e}")
 
 from benchmark_datasets import get_all_benchmark_datasets
 from evaluation import compute_all_metrics, paired_t_test
@@ -245,6 +259,9 @@ def run_full_benchmark():
     print("=" * 70)
     print()
 
+    if SOTA_BENCHMARK_AVAILABLE:
+        SotaBenchmarkService.start_experiment("AstroAnomaly_Ensemble_SOTA")
+
     datasets = get_all_benchmark_datasets()
     all_results = {}
 
@@ -279,6 +296,15 @@ def run_full_benchmark():
             m = evaluate_baseline(method, flux, labels)
             ds_results.append(m)
             print(f"  Running  {method:<14} ...  F1={m['f1_score']:.4f}  AUC-ROC={m['auc_roc']:.4f}")
+
+            # MLflow Tracking for SOTA
+            if SOTA_BENCHMARK_AVAILABLE:
+                SotaBenchmarkService.log_benchmark_run(
+                    dataset_name=ds_name,
+                    model_name=method,
+                    metrics={"f1": m["f1_score"], "auc_roc": m["auc_roc"]},
+                    params={"epochs": EPOCHS, "percentile": THRESHOLD_PERCENTILE}
+                )
 
         # RL Threshold Adaptation
         print("  Running RL threshold evaluation...")

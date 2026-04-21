@@ -1,12 +1,21 @@
 import csv
 import json
 import os
+import logging
 from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 from io import StringIO
 from urllib.error import URLError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
+
+# SOTA INTEGRATION (MODULARIZED)
+try:
+    from src.sota.sdk import SotaSDK as SotaExternalService
+    SOTA_SDK_AVAILABLE = True
+except ImportError:
+    SOTA_SDK_AVAILABLE = False
+    logging.warning("src.sota.sdk not found. Falling back to basic urllib.")
 
 
 def fetch_nasa_fireball_csv(recent_years: int = 2) -> tuple[str, bytes]:
@@ -56,6 +65,15 @@ def fetch_nasa_fireball_csv(recent_years: int = 2) -> tuple[str, bytes]:
 
 
 def fetch_live_transient_stream(limit: int = 20) -> list[dict]:
+    """
+    Expert-level stream fetch via ALeRCE official client.
+    """
+    if SOTA_SDK_AVAILABLE:
+        try:
+            return SotaExternalService.fetch_alerce_stream(limit=limit)
+        except Exception as e:
+            logging.error(f"SOTA Stream fetch failed: {e}. Falling back to manual Antares...")
+            
     external = _fetch_external_transient_stream(limit=limit)
     if len(external) > 0:
         return external
@@ -139,10 +157,32 @@ def _fetch_external_transient_stream(limit: int = 20) -> list[dict]:
 
 
 def fetch_cross_match_metadata(object_name: str) -> dict:
+    """
+    Expert-level metadata resolution via Astroquery.Simbad.
+    """
     query = object_name.strip()
     if not query:
         raise ValueError("object_name is required")
+        
+    if SOTA_SDK_AVAILABLE:
+        try:
+            res = SotaExternalService.resolve_object(name=query)
+            if res.get("resolved"):
+                return {
+                    "object_name": query,
+                    "simbad": res,
+                    "vizier": {
+                        "catalog_hint": "I/355/gaiadr3",
+                        "query_url": f"https://vizier.cds.unistra.fr/viz-bin/VizieR?-source=I/355/gaiadr3&-c={query}",
+                        "status": "Resolved via Astroquery"
+                    }
+                }
+        except Exception as e:
+            logging.error(f"SOTA Resolution failed: {e}. Falling back to manual Sesame...")
+
+    # Original basic resolution (Sesame manual parsing)
     simbad_url = "https://cds.unistra.fr/cgi-bin/nph-sesame/-oxp/SNV?" + query
+    # ... (rest of search/match logic below)
     try:
         request = Request(simbad_url, headers={"User-Agent": "astro-anomaly-platform/1.0"})
         with urlopen(request, timeout=15) as response:

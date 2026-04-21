@@ -1,5 +1,15 @@
-import csv
+import sys
+from pathlib import Path
 
+# Ensure imports resolve (Add both backend and project root)
+BACKEND_DIR = str(Path(__file__).resolve().parent)
+PROJECT_ROOT = str(Path(__file__).resolve().parent.parent)
+if BACKEND_DIR not in sys.path:
+    sys.path.insert(0, BACKEND_DIR)
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
+import csv
 import numpy as np
 import torch
 import torch.nn as nn
@@ -7,10 +17,40 @@ from torch.utils.data import DataLoader, TensorDataset
 
 from database import build_model_path, build_scores_path
 
+# SOTA INTEGRATION (MODULARIZED)
+try:
+    from src.sota.models.transformer import AnomalyTransformer
+    from src.sota.models.tranad import TranAD
+    from src.sota.models.timesnet import TimesNet
+    from backend.sota_models import SotaExpertFactory, StackedEnsembleExpert
+    SOTA_AVAILABLE = True
+except ImportError:
+    SOTA_AVAILABLE = False
 
 WINDOW_SIZE = 32
 BATCH_SIZE = 256
 
+class USAD(nn.Module):
+    def __init__(self, input_dim: int, hidden_dim: int = 64, latent_dim: int = 16):
+        super().__init__()
+        self.encoder = nn.Sequential(
+            nn.Linear(input_dim, hidden_dim), nn.ReLU(),
+            nn.Linear(hidden_dim, latent_dim), nn.ReLU()
+        )
+        self.decoder1 = nn.Sequential(
+            nn.Linear(latent_dim, hidden_dim), nn.ReLU(),
+            nn.Linear(hidden_dim, input_dim), nn.Sigmoid()
+        )
+        self.decoder2 = nn.Sequential(
+            nn.Linear(latent_dim, hidden_dim), nn.ReLU(),
+            nn.Linear(hidden_dim, input_dim), nn.Sigmoid()
+        )
+
+    def forward(self, inputs):
+        z = self.encoder(inputs)
+        w1 = self.decoder1(z)
+        w2 = self.decoder2(z)
+        return w1, w2
 
 class Autoencoder(nn.Module):
     def __init__(self, input_dim: int):
@@ -95,6 +135,11 @@ def model_factory(model_name: str, input_dim: int) -> nn.Module:
         return VariationalAutoencoder(input_dim)
     if model_name == "transformer":
         return TransformerReconstructor(input_dim)
+    if model_name == "sota_ensemble":
+        if SOTA_AVAILABLE:
+            return StackedEnsembleExpert(input_dim=input_dim)
+        else:
+            raise ValueError("SOTA models not available. Ensure external repos are cloned.")
     raise ValueError(f"Unsupported model: {model_name}")
 
 
@@ -342,10 +387,39 @@ def ensemble_discovery(
     denoising_method: str = "none",
     denoising_strength: int = 5,
 ) -> dict:
+    """
+    Expert-level discovery. Automatically triggers SOTA Ensemble if requested,
+    otherwise falls back to baseline multi-model training.
+    """
+    # 1. Check for SOTA Ensemble request
+    if "sota_ensemble" in model_names and SOTA_AVAILABLE:
+        try:
+            windows = create_windows(flux_values)
+            x_tensor = torch.from_numpy(windows).float()
+            ensemble = StackedEnsembleExpert(input_dim=x_tensor.shape[-1], seq_len=x_tensor.shape[1])
+            expert_scores = ensemble(x_tensor)
+            unified_score = ensemble.compute_weighted_anomaly_score(expert_scores)
+            
+            # Broadcast the score across the light curve
+            confidence_index = np.full(len(flux_values), unified_score) 
+            threshold = 0.5
+            anomaly_indices = [int(i) for i in range(len(confidence_index)) if confidence_index[i] >= threshold]
+            
+            return {
+                "confidence_index": confidence_index.tolist(),
+                "threshold": threshold,
+                "anomaly_indices": anomaly_indices,
+                "sota_expert_scores": expert_scores,
+                "method": "State-of-the-Art Ensemble (A-T, TranAD, TimesNet)"
+            }
+        except Exception as e:
+            logging.error(f"SOTA Ensemble failed: {e}. Falling back to baseline.")
+
+    # 2. Original Baseline Logic
     training = train_models(
         dataset_id=dataset_id,
         flux_values=flux_values,
-        model_names=model_names,
+        model_names=[m for m in model_names if m != "sota_ensemble"],
         epochs=epochs,
         batch_size=batch_size,
         use_gpu=use_gpu,
