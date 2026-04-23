@@ -18,5 +18,4 @@ dataset/
 # Project specific
 checkpoints/
 results.txt
-AnomalyTransformer_Colab.ipynb
 test_gpu.py
