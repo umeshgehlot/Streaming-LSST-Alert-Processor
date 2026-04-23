@@ -1,39 +1,22 @@
-# Astronomical Anomaly Discovery Project Gitignore
-
-# Environment variables
-.env
+# Environments
+.venv/
+env/
+venv/
+ENV/
 
 # Python
 __pycache__/
 *.py[cod]
 *$py.class
-.venv/
-build/
-dist/
-*.egg-info/
-.pytest_cache/
+*.so
 
-# Databases
-backend/app.db
+# Data (Large files)
+*.npy
+*.pkl
+dataset/
 
-# Frontend
-frontend/node_modules/
-frontend/dist/
-frontend/.env*
-frontend/.next/
-frontend/out/
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Data
-data/uploads/*
-!data/uploads/.gitkeep
-
-# Models & Data
-models/*.pt
-backend/results/*.csv
-backend/data/real/*
-backend/reports/
-backend/latex_diagrams/
+# Project specific
+checkpoints/
+results.txt
+AnomalyTransformer_Colab.ipynb
+test_gpu.py
