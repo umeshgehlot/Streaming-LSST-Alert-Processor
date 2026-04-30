@@ -11,6 +11,7 @@ from .models.streaming_gnn import StreamingGNN, StreamingAlertGraph
 from .pipeline.data_pipeline import StreamingPipeline
 from .config import get_config
 import numpy as np
+import os
 
 
 class StreamingLSSTProcessor:
@@ -60,6 +61,37 @@ class StreamingLSSTProcessor:
             self.graph_processor = StreamingAlertGraph(gnn, self.feature_dim, max_nodes=gnn_cfg['max_nodes'])
             self.spatial_threshold = gnn_cfg.get('spatial_threshold', 1.0)
             self.edge_weight = gnn_cfg.get('edge_weight', 0.5)
+            
+        self._load_pretrained_models()
+
+    def _load_pretrained_models(self):
+        """Load pretrained models from disk if they exist."""
+        import pathlib
+        project_root = pathlib.Path(__file__).parent.parent
+        trained_dir = project_root / "streaming_lsst" / "trained_models"
+        
+        ae_path = trained_dir / "autoencoder_trained.pt"
+        if self.anomaly_detector and ae_path.exists():
+            try:
+                self.anomaly_detector.autoencoder.load_state_dict(torch.load(ae_path, map_location=self.device))
+                print(f"Loaded pretrained Autoencoder from {ae_path}")
+            except Exception as e:
+                print(f"Failed to load pretrained Autoencoder: {e}")
+                
+        trans_path = trained_dir / "transformer_trained.pt"
+        if self.transformer and trans_path.exists():
+            try:
+                # The saved transformer is a ModuleDict with batch-mode components. 
+                # We can map them back to the streaming model's components:
+                state_dict = torch.load(trans_path, map_location=self.device)
+                
+                # We need to map state dict keys from the batch model to the streaming model
+                new_state_dict = {}
+                # This depends on exact module names. For now we skip auto-loading transformer 
+                # because the architectures (streaming vs batch) differ slightly in structure
+                # but we've successfully loaded the autoencoder which is identical.
+            except Exception as e:
+                pass
     
     def process_alert(self, alert: Dict) -> Dict:
         import time

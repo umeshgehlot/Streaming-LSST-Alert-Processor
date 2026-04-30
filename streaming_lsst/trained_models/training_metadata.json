@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-04-30 12:37:25",
+  "device": "cpu",
+  "epochs": 10,
+  "batch_size": 256,
+  "lr": 0.001,
+  "num_samples": 72888,
+  "num_anomalies": 36433,
+  "best_threshold_sigma": 1.0,
+  "best_f1": 0.02553214362502687
+}
