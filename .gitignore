@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+.env
+.pytest_cache/
+
+# LaTeX
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.pdf
+*.toc
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+
+# Data (Optional - keeping small data, but ignoring large ones if needed)
+# streaming_lsst/data/real_alerts/
+
+# IDEs
+.vscode/
+.idea/
+.DS_Store

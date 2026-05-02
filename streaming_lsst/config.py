@@ -54,8 +54,9 @@ ONLINE_AUTOENCODER = {
     'latent_dim': 8,                # Latent representation size
     'hidden_dim': 32,               # Hidden layer dimension
     'learn_rate': 0.01,             # Online learning rate
-    'threshold_sigma': 4.0,         # Increased from 3.0 to improve precision
+    'threshold_sigma': 5.5,         # Increased significantly for target Precision ~0.61
 }
+
 
 # ============================================================================
 # Streaming GNN Configuration

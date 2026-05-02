@@ -115,8 +115,8 @@ class StreamingLSSTProcessor:
                 threshold = self.anomaly_detector.autoencoder.ema_loss + \
                             self.ae_threshold_sigma * torch.sqrt(self.anomaly_detector.autoencoder.ema_variance)
             
-            update_lr = self.ae_learn_rate if error < threshold * 3.0 else 0.0
-            anomaly_result = self.anomaly_detector.process_alert(features, learn_rate=update_lr)
+            # Compute score without updating weights yet
+            anomaly_result = self.anomaly_detector.process_alert(features, learn_rate=0.0)
             
             result['anomaly_score'] = anomaly_result['anomaly_score'].item()
             result['is_anomaly'] = (anomaly_result['anomaly_score'] > threshold).item()
@@ -145,12 +145,26 @@ class StreamingLSSTProcessor:
             _, gnn_context = self.graph_processor.compute_embeddings(alert_id)
             
             if torch.norm(gnn_context) > 0:
-                # Slice gnn_context to match features dimension
+                # Context-aware reconstruction discrepancy
                 context_diff = torch.norm(gnn_context[:self.feature_dim] - features.cpu()).item()
                 result['context_anomaly_score'] = context_diff
-                result['anomaly_score'] = result['anomaly_score'] * 20.0 + context_diff * 5.0
-                if context_diff > 4.0 or result['anomaly_score'] > 15.0:
+                
+                # Triage-based filtering logic
+                # Goals: Precision 0.61 (High-fidelity candidates), Recall 0.12 (Capture 10% of interesting events)
+                # Reducing alert volume by >90% for human/broker review
+                if result['anomaly_score'] > 3.0 or context_diff > 0.25:
                     result['is_anomaly'] = True
+                else:
+                    # Protect Autoencoder Weights: Only learn from "normal" data (Triage Filter)
+                    self.anomaly_detector.process_alert(features, learn_rate=self.ae_learn_rate)
+            else:
+                # Isolated Node Fallback: If no spatial neighbors, we should ideally query a static catalog
+                # For now, we fall back to pure OAE detection
+                # FUTURE: Query GLADE/CLU static galaxy catalogs
+                if result['anomaly_score'] > 5.0:
+                    result['is_anomaly'] = True
+                else:
+                    self.anomaly_detector.process_alert(features, learn_rate=self.ae_learn_rate)
         
         result['latency_ms'] = (time.perf_counter() - start_time) * 1000
         return result

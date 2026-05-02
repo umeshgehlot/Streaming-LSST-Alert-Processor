@@ -118,8 +118,8 @@ def verify_system():
     transients = create_historical_transients()
     
     print("\n" + "-"*80)
-    print(f"{'Type':20s} | {'ID':25s} | {'Score':8s} | {'Detected?'}")
-    print("-" * 80)
+    print(f"{'Type':20s} | {'ID':25s} | {'Score':8s} | {'Threshold':10s} | {'Detected?'}")
+    print("-" * 103)
     
     for t in transients:
         label = t['candidate'].pop('label')
@@ -127,8 +127,9 @@ def verify_system():
         
         flag = "YES" if result['is_anomaly'] else "NO"
         score = result['anomaly_score']
+        threshold = result.get('anomaly_details', {}).get('threshold', 0.0)
         
-        print(f"{label:20s} | {result['alert_id']:25s} | {score:8.2f} | {flag}")
+        print(f"{label:20s} | {result['alert_id']:25s} | {score:8.2f} | {threshold:10.2f} | {flag}")
         
         if result['is_anomaly']:
             if result.get('context_anomaly_score', 0) > 4.0:
